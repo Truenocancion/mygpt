@@ -1,11 +1,23 @@
-numpy==1.23 # used for the actual model code/weights
-regex==2017.4.5 # used by the bpe tokenizer
-requests==2.27.1 # used to download gpt-2 files from openai
-tqdm==4.64.0 # progress bar to keep your sanity
-fire==0.5.0 # easy CLI creation
-jax==0.6.2 # to run on gpu
+# --- Core numerical + ML stack ---
+numpy==1.26.4             # Compatible with JAX 0.6.x and TF 2.19
+jax==0.6.2                # Latest JAX supporting NumPy 1.26
+jaxlib==0.6.2             # Must match JAX version
 
-# used to load the gpt-2 weights from the open-ai tf checkpoint
-# M1 Macbooks require tensorflow-macos
-tensorflow==2.19.0; sys_platform != 'darwin' or platform_machine != 'arm64'
-tensorflow-macos==2.12.0; sys_platform == 'darwin' and platform_machine == 'arm64'
+# --- Utility + CLI packages ---
+regex==2023.12.25         # Compatible with Python 3.12
+requests==2.27.1          # Used to download GPT-2 files from OpenAI
+tqdm==4.64.0              # Progress bar
+fire==0.5.0               # Simple CLI creation
+
+# --- TensorFlow (for GPT-2 checkpoint loading) ---
+tensorflow==2.19.0; sys_platform != "darwin" or platform_machine != "arm64"
+tensorflow-macos==2.12.0; sys_platform == "darwin" and platform_machine == "arm64"
+tensorflow-metal==1.1.0; sys_platform == "darwin" and platform_machine == "arm64"
+
+# --- Optional: for pandas compatibility with TF internal deps ---
+pandas==2.2.3             # Compiles cleanly with NumPy 1.26 ABI
+opt_einsum==3.4.0         # Required by JAX backend
+ml_dtypes==0.5.3          # Required by JAX 0.6.x
+
+# --- Optional visualization / dev tools ---
+colorama==0.4.6           # tqdm colors on Windows terminals
